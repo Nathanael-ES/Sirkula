@@ -4,7 +4,7 @@
 
 <form class="row mb-3" method="GET">
     <div class="col-md-10"><input class="form-control" name="search" placeholder="{{ __('messages.search') }}" value="{{ request('search') }}"></div>
-    <div class="col-md-2"><button class="btn btn-primary w-100">{{ __('messages.search') }}</button></div>
+    <div class="col-md-2"><button class="btn btn-primary w-100 rounded-pill px-3">{{ __('messages.search') }}</button></div>
 </form>
 
 <table class="table table-hover">

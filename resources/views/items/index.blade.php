@@ -1,110 +1,162 @@
+
 @extends('layouts.app')
 
 @section('content')
+
 <div class="d-flex justify-content-between mb-3">
-    <h3>{{ __('messages.item_list') }}</h3>
-    <a href="{{ route('items.create') }}" class="btn btn-primary">{{ __('messages.add_item') }}</a>
+    <h3 class="fw-bold">Katalog Barang</h3>
+    <a href="{{ route('items.create') }}" class="btn btn-primary rounded-pill px-3">
+        + Tambah Barang
+    </a>
 </div>
 
+{{-- FILTER --}}
 <form method="GET" class="row mb-4">
+
     <div class="col-md-4">
-        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="{{ __('messages.search') }}...">
+        <input type="text" name="search" value="{{ request('search') }}"
+            class="form-control" placeholder="Cari nama barang...">
     </div>
 
     <div class="col-md-3">
         <select name="category" class="form-control">
-            <option value="">{{ __('messages.category') }} - {{ __('messages.filter') }}</option>
+            <option value="">Semua Kategori</option>
             @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+            <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
+                {{ $cat->name }}
+            </option>
             @endforeach
         </select>
     </div>
 
     <div class="col-md-3">
         <select name="status" class="form-control">
-            <option value="">{{ __('messages.status') }} - {{ __('messages.filter') }}</option>
-            <option value="pending" {{ request('status')=='pending'?'selected':'' }}>{{ __('messages.pending') }}</option>
-            <option value="verified" {{ request('status')=='verified'?'selected':'' }}>{{ __('messages.verified') }}</option>
-            <option value="ready" {{ request('status')=='ready'?'selected':'' }}>{{ __('messages.ready') }}</option>
-            <option value="distributed" {{ request('status')=='distributed'?'selected':'' }}>{{ __('messages.distributed') }}</option>
+            <option value="">Semua Status</option>
+            <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
+            <option value="verified" {{ request('status')=='verified'?'selected':'' }}>Terverifikasi</option>
+            <option value="ready" {{ request('status')=='ready'?'selected':'' }}>Siap Distribusi</option>
+            <option value="distributed" {{ request('status')=='distributed'?'selected':'' }}>Terdistribusi</option>
         </select>
     </div>
 
     <div class="col-md-2">
-        <button class="btn btn-primary w-100">{{ __('messages.filter') }}</button>
+        <button class="btn btn-primary w-100 rounded-pill">Filter</button>
     </div>
+
 </form>
 
-<table class="table table-hover table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th>{{ __('messages.photo') }}</th>
-            <th>{{ __('messages.item_name') }}</th>
-            <th>{{ __('messages.category') }}</th>
-            <th>{{ __('messages.condition') }}</th>
-            <th>{{ __('messages.status') }}</th>
-            <th width="320">{{ __('messages.action') }}</th>
-        </tr>
-    </thead>
-    <tbody>
+{{-- KATALOG --}}
+<div class="row g-4">
+
     @foreach($items as $item)
-        <tr>
-            <td class="d-flex align-items-center">
-                @if($item->photo)
-                    <img src="{{ asset('storage/'.$item->photo) }}" width="70" height="70" class="img-thumbnail me-2" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#photoModal{{ $item->id }}">
-                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#photoModal{{ $item->id }}">{{ __('messages.view_photo') }}</button>
-                @else
-                    <span class="text-muted">{{ __('messages.no_data') }}</span>
-                @endif
-            </td>
+    <div class="col-md-4 col-lg-3">
 
-            <td>{{ $item->name }}</td>
-            <td>{{ $item->category->name ?? '-' }}</td>
-            <td>{{ $item->condition }}</td>
-            <td>{{ __('messages.' . $item->status) }}</td>
+        <div class="glass-card mb-4 p-0">
 
-            <td>
-                <a href="{{ route('items.edit', $item->id) }}" class="btn btn-sm btn-warning">{{ __('messages.edit') }}</a>
+            {{-- FOTO --}}
+            @if($item->photo)
+                <img src="{{ $item->photo ? asset('storage/'.$item->photo) : 'https://via.placeholder.com/400x300?text=No+Photo' }}"
+                    class="glass-img">
+            @else
+                <div class="d-flex justify-content-center align-items-center bg-light"
+                     style="height:200px;">
+                    <span class="text-muted">Tidak ada foto</span>
+                </div>
+            @endif
 
-                <form action="{{ route('items.destroy', $item->id) }}" method="POST" class="d-inline">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-danger">{{ __('messages.delete') }}</button>
-                </form>
+            <div class="glass-body">
 
-                @if($item->photo)
-                    <!-- additional spacing -->
-                @endif
+                <div class="glass-title">{{ $item->name }}</div>
 
-                @if(auth()->user()->role === 'admin')
-                    @if($item->status === 'pending')
-                        <a href="{{ route('items.updateStatus', [$item->id,'verified']) }}" class="btn btn-sm btn-success" onclick="event.preventDefault(); document.getElementById('verify-{{ $item->id }}').submit();">{{ __('messages.verified') }}</a>
-                        <form id="verify-{{ $item->id }}" method="POST" action="{{ route('items.updateStatus', [$item->id,'verified']) }}">@csrf @method('PATCH')</form>
+                <div class="glass-meta">
+                    <strong>Kategori:</strong> {{ $item->category->name }}
+                </div>
+
+                <div class="glass-meta">
+                    <strong>Kondisi:</strong> {{ $item->condition }}
+                </div>
+
+                <span class="badge glass-badge bg-primary">
+                    {{ ucfirst($item->status) }}
+                </span>
+
+                <div class="mt-3 d-flex flex-column gap-2">
+
+                    <!-- Lihat Foto -->
+                    @if($item->photo)
+                    <a href="{{ asset('storage/'.$item->photo) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-image"></i> Lihat Foto
+                    </a>
                     @endif
 
-                    @if($item->status === 'verified')
-                        <a href="{{ route('items.updateStatus', [$item->id,'ready']) }}" class="btn btn-sm btn-primary" onclick="event.preventDefault(); document.getElementById('ready-{{ $item->id }}').submit();">{{ __('messages.ready') }}</a>
-                        <form id="ready-{{ $item->id }}" method="POST" action="{{ route('items.updateStatus', [$item->id,'ready']) }}">@csrf @method('PATCH')</form>
+                    <!-- EDIT -->
+                    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+
+                    <!-- HAPUS -->
+                    <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-danger btn-sm w-100">
+                            <i class="bi bi-trash"></i> Hapus
+                        </button>
+                    </form>
+
+                    <!-- DESKRIPSI COLLAPSE -->
+                    <button class="btn btn-outline-secondary btn-sm"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#desc-{{ $item->id }}">
+                        <i class="bi bi-chevron-down"></i> Deskripsi
+                    </button>
+
+                    <div id="desc-{{ $item->id }}" class="collapse mt-2">
+                        <div class="p-2 rounded"
+                            style="background: rgba(255,255,255,0.35); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.4);">
+                            <p class="mb-0" style="white-space: pre-line;">
+                                {{ $item->description ?? 'Tidak ada deskripsi.' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- ADMIN ONLY — STATUS BUTTONS -->
+                    @if(auth()->user()->role === 'admin')
+
+                        <!-- PENDING → VERIFIED -->
+                        @if($item->status === 'pending')
+                            <form method="POST" action="{{ route('items.updateStatus', [$item->id, 'verified']) }}">
+                                @csrf @method('PATCH')
+                                <button class="btn btn-success btn-sm">
+                                    <i class="bi bi-check-circle"></i> Verifikasi
+                                </button>
+                            </form>
+                        @endif
+
+                        <!-- VERIFIED → READY -->
+                        @if($item->status === 'verified')
+                            <form method="POST" action="{{ route('items.updateStatus', [$item->id, 'ready']) }}">
+                                @csrf @method('PATCH')
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-box-seam"></i> Siap Distribusi
+                                </button>
+                            </form>
+                        @endif
+
                     @endif
-                @endif
-            </td>
-        </tr>
-    @endforeach
-    </tbody>
-</table>
-
-{{ $items->links() }}
-
-@foreach($items as $item)
-    @if($item->photo)
-    <div class="modal fade" id="photoModal{{ $item->id }}" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <img src="{{ asset('storage/'.$item->photo) }}" class="img-fluid w-100" alt="{{ $item->name }}">
+                    
+                    
                 </div>
             </div>
+
+
         </div>
+
     </div>
-    @endif
-@endforeach
+    @endforeach
+
+</div>
+
+<div class="mt-4">
+    {{ $items->links() }}
+</div>
+
 @endsection

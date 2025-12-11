@@ -39,8 +39,8 @@
         <label class="form-label">{{ __('messages.description') }}</label>
         <textarea name="description" class="form-control">{{ old('description', $item->description) }}</textarea>
     </div>
-
     <button class="btn btn-primary">{{ __('messages.edit') }}</button>
+    <br>
     <a href="{{ route('items.index') }}" class="btn btn-secondary">{{ __('messages.cancel') }}</a>
 </form>
 @endsection
