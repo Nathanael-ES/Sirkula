@@ -25,7 +25,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|in:admin,relawan',
+            'role' => 'required|in:admin,relawan,donatur',
         ]);
 
         User::create([

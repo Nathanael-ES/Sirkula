@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -22,8 +23,10 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->validated());
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil ditambahkan');
+
+        // --- PERUBAHAN DISINI ---
+        // Menggunakan back() agar tetap di Dashboard setelah input
+        return back()->with('success', 'Kategori berhasil ditambahkan');
     }
 
     public function edit(Category $category)
@@ -34,14 +37,14 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil diperbarui');
+
+        return back()->with('success', 'Kategori berhasil diperbarui');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus');
+
+        return back()->with('success', 'Kategori berhasil dihapus');
     }
 }

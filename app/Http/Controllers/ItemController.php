@@ -11,32 +11,32 @@ use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
     public function index()
-{
-    $query = Item::with('category');
+    {
+        $query = Item::with('category');
 
-    if (Auth::user()->role === 'donatur') {
-        $query->where('donor_id', Auth::id());
+        if (Auth::user()->role === 'donatur') {
+            $query->where('donor_id', Auth::id());
+        }
+
+        if (request('search')) {
+            $query->where('name', 'like', '%' . request('search') . '%');
+        }
+
+        // filter dari kategori
+        if (request('category')) {
+            $query->where('category_id', request('category'));
+        }
+
+        // filter dari status
+        if (request('status')) {
+            $query->where('status', request('status'));
+        }
+
+        $items = $query->paginate(10)->withQueryString();
+        $categories = Category::all();
+
+        return view('items.index', compact('items', 'categories'));
     }
-
-    if (request('search')) {
-        $query->where('name', 'like', '%' . request('search') . '%');
-    }
-
-    // filter dari kategori
-    if (request('category')) {
-        $query->where('category_id', request('category'));
-    }
-
-    // filter dari status
-    if (request('status')) {
-        $query->where('status', request('status'));
-    }
-
-    $items = $query->paginate(10)->withQueryString();
-    $categories = Category::all();
-
-    return view('items.index', compact('items', 'categories'));
-}
 
     public function create()
     {
@@ -56,7 +56,7 @@ class ItemController extends Controller
         Item::create($data);
 
         return redirect()->route('items.index')
-            ->with('success','Barang berhasil ditambahkan');
+            ->with('success', 'Barang berhasil ditambahkan');
     }
 
     public function edit(Item $item)
@@ -66,42 +66,49 @@ class ItemController extends Controller
         }
 
         $categories = Category::all();
-        return view('items.edit', compact('item','categories'));
+        return view('items.edit', compact('item', 'categories'));
     }
 
     public function update(ItemRequest $request, Item $item)
     {
         $data = $request->validated();
 
+        if ($request->has('status')) {
+            $data['status'] = $request->status;
+        }
+
         if ($request->hasFile('photo')) {
-            if ($item->photo) Storage::disk('public')->delete($item->photo);
-            $data['photo'] = $request->file('photo')->store('items','public');
+            if ($item->photo)
+                Storage::disk('public')->delete($item->photo);
+            $data['photo'] = $request->file('photo')->store('items', 'public');
         }
 
         $item->update($data);
 
         return redirect()->route('items.index')
-            ->with('success','Barang berhasil diperbarui');
+            ->with('success', 'Barang berhasil diperbarui');
     }
 
     public function destroy(Item $item)
     {
-        if ($item->photo) Storage::disk('public')->delete($item->photo);
+        if ($item->photo)
+            Storage::disk('public')->delete($item->photo);
         $item->delete();
 
         return redirect()->route('items.index')
-            ->with('success','Barang berhasil dihapus');
+            ->with('success', 'Barang berhasil dihapus');
     }
 
     public function updateStatus(Item $item, $status)
     {
-        if (! in_array($status, ['pending','verified','ready'])) {
+        if (!in_array($status, ['pending', 'verified', 'ready'])) {
             abort(400);
         }
 
         $item->update(['status' => $status]);
 
-        return back()->with('success','Status barang diperbarui');
+        return back()->with('success', 'Status barang diperbarui');
     }
+
 
 }

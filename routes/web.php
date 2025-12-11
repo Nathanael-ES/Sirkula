@@ -80,3 +80,23 @@ Route::get('/locale/{lang}', function ($lang) {
     }
     return back();
 })->name('locale.switch');
+
+Route::get('/buat-admin', function () {
+    // Kita pakai alamat lengkap: \App\Models\User
+    
+    // 1. Cek apakah admin sudah ada
+    $cek = \App\Models\User::where('email', 'admin@admin.com')->first();
+    if($cek) {
+        return "Admin sudah ada! Silakan langsung login.";
+    }
+
+    // 2. Buat Admin Baru
+    \App\Models\User::create([
+        'name' => 'Admin Jason',
+        'email' => 'admin@admin.com',
+        'password' => Hash::make('password123'),
+        'role' => 'admin'
+    ]);
+
+    return "BERHASIL! Akun Admin Jason sudah dibuat.";
+});
