@@ -10,7 +10,7 @@ class DonationController extends Controller
 {
     public function index()
     {
-        $query = Donation::with(['item','donor']);
+        $query = Donation::with(['item.category', 'donor']);
 
         if (Auth::user()->role === 'donatur') {
             $query->where('donor_id', Auth::id());
@@ -27,35 +27,14 @@ class DonationController extends Controller
         return view('donations.index', compact('donations'));
     }
 
-
-    public function create()
-    {
-        $items = Item::where('donor_id', Auth::id())
-                     ->where('status', 'pending')
-                     ->get();
-
-        return view('donations.create', compact('items'));
-    }
-
-    public function store()
-    {
-        request()->validate([
-            'item_id' => 'required|exists:items,id'
-        ]);
-
-        Donation::create([
-            'item_id' => request('item_id'),
-            'donor_id' => Auth::id(),
-            'submitted_at' => now(),
-        ]);
-
-        return redirect()->route('donations.index')
-            ->with('success','Donasi berhasil diajukan');
-    }
-
     public function destroy(Donation $donation)
     {
+        if (!in_array(Auth::user()->role, ['admin', 'relawan'])) {
+            abort(403);
+        }
+
         $donation->delete();
-        return back()->with('success','Donasi dihapus');
+
+        return back()->with('success', 'Donasi berhasil dihapus');
     }
 }

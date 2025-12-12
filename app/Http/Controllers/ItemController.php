@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ItemRequest;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,11 +54,20 @@ class ItemController extends Controller
             $data['photo'] = $request->file('photo')->store('items', 'public');
         }
 
-        Item::create($data);
+        // HANYA SATU INSERT ITEM
+        $item = Item::create($data);
+
+        // otomatis buat record donasi
+        Donation::create([
+            'item_id' => $item->id,
+            'donor_id' => Auth::id(),
+            'submitted_at' => now(),
+        ]);
 
         return redirect()->route('items.index')
-            ->with('success', 'Barang berhasil ditambahkan');
+            ->with('success','Barang berhasil ditambahkan');
     }
+
 
     public function edit(Item $item)
     {
