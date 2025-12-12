@@ -243,7 +243,7 @@
                         @foreach($recipients as $r)
                         <tr>
                             <td class="ps-4 fw-medium">{{ $r->name }}</td>
-                            <td class="text-muted small">{{ Str::limit($r->address ?? $r->phone, 30) }}</td>
+                            <td class="text-muted small">{{ Str::limit($r->phone, 30) }}</td>
                             <td class="text-end pe-4">
                                 @if(auth()->user()->role === 'admin')
                                 <a href="#" class="text-secondary opacity-75 me-3 text-decoration-none"
@@ -278,6 +278,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         
+        var modals = document.querySelectorAll('.modal');
+        modals.forEach(function(modal) {
+            document.body.appendChild(modal);
+        });
+
         var editCatModal = document.getElementById('editCategoryModal');
         if (editCatModal) {
             editCatModal.addEventListener('show.bs.modal', function (event) {
@@ -305,9 +310,13 @@
                 var address = button.getAttribute('data-address');
                 var phone = button.getAttribute('data-phone');
                 
-                editRecipModal.querySelector('#editRecipientName').value = name;
-                editRecipModal.querySelector('#editRecipientAddress').value = address;
-                editRecipModal.querySelector('#editRecipientPhone').value = phone;
+                var inputName = editRecipModal.querySelector('#editRecipientName');
+                var inputAddress = editRecipModal.querySelector('#editRecipientAddress');
+                var inputPhone = editRecipModal.querySelector('#editRecipientPhone');
+
+                if(inputName) inputName.value = name;
+                if(inputAddress) inputAddress.value = address;
+                if(inputPhone) inputPhone.value = phone;
 
                 var form = editRecipModal.querySelector('#editRecipientForm');
                 var updateUrl = "{{ route('recipients.update', ':id') }}";
