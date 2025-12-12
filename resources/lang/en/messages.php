@@ -53,6 +53,9 @@ return [
     'recipient_list' => 'Recipient List',
     'add_recipient'  => 'Add Recipient',
     'recipient_name' => 'Recipient Name',
+    'address' => 'Address',
+    'phone' => 'Phone Number',
+
 
     // Distribution
     'distribution_list' => 'Distribution List',

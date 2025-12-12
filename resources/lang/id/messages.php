@@ -53,6 +53,9 @@ return [
     'recipient_list' => 'Daftar Penerima',
     'add_recipient'  => 'Tambah Penerima',
     'recipient_name' => 'Nama Penerima',
+    'alamat' => 'Alamat',
+    'phone' => 'Nomor Telepon',
+
 
     // Distribusi
     'distribution_list' => 'Daftar Distribusi',
