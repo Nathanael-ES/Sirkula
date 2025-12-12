@@ -6,6 +6,21 @@
     <title>@yield('title','Sirkula')</title>
 
     @include('layouts.bootstrap')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    body { font-family: 'Poppins', sans-serif !important; }
+
+    .modern-link {
+        font-weight: 500;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        transition: 0.25s;
+    }
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -28,12 +43,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a></li>
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('items.index') }}">{{ __('messages.items') }}</a></li>
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('admin.categories.index') }}">{{ __('messages.categories') }}</a></li>
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('donations.index') }}">{{ __('messages.donations') }}</a></li>
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('recipients.index') }}">{{ __('messages.recipients') }}</a></li>
-                <li class="nav-item"><a class="nav-link modern-link" href="{{ route('distributions.index') }}">{{ __('messages.distributions') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('items.index') }}">{{ __('messages.items') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('donations.index') }}">{{ __('messages.donations') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('distributions.index') }}">{{ __('messages.distributions') }}</a></li>
 
                 @if(auth()->check() && auth()->user()->role === 'admin')
                     <li class="nav-item">
@@ -103,5 +116,6 @@
 </div>
 
 <script src="{{ asset('bootstrap5.2/js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

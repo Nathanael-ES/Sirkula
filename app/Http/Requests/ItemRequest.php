@@ -12,14 +12,15 @@ class ItemRequest extends FormRequest
         return Auth::check();
     }
 
-    public function rules(): array
-    {
-        return [
-            'category_id' => 'required|exists:categories,id',
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'condition' => 'required|string',
-            'photo' => 'nullable|image|max:2048',
-        ];
-    }
+    public function rules()
+{
+    return [
+        'name' => 'required|string|max:255',
+        'category_id' => 'required|exists:categories,id',
+        'condition' => 'required|string',
+        'description' => 'nullable|string',
+        'photo' => 'nullable|image|max:2048',
+        'status' => 'nullable|in:pending,verified,ready,distributed', 
+    ];
+}
 }
