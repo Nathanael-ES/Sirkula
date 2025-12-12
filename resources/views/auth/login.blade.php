@@ -21,7 +21,7 @@
                 <label class="form-check-label" for="remember">Remember me</label>
             </div>
             <button class="btn btn-primary">Login</button>
-            <a href="{{ route('register') }}" class="btn btn-link">Register</a>
+            <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
         </form>
     </div>
 </div>
