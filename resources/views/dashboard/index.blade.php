@@ -68,7 +68,7 @@
 
 <div class="container-fluid dashboard-header">
     <div class="container mt-0">
-        <h2 class="fw-semibold">Dashboard</h2>
+        <h2 class="fw-semibold">{{ __('messages.users') }}</h2>
     </div>
 </div>
 

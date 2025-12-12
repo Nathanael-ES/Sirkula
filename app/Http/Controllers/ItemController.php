@@ -54,16 +54,10 @@ class ItemController extends Controller
             $data['photo'] = $request->file('photo')->store('items', 'public');
         }
 
-        $item = Item::create($data);
-
-        Donation::create([
-            'item_id' => $item->id,
-            'donor_id' => Auth::id(),
-            'submitted_at' => now(),
-        ]);
+        Item::create($data);
 
         return redirect()->route('items.index')
-            ->with('success', 'Barang berhasil ditambahkan');
+            ->with('success','Barang berhasil ditambahkan');
     }
 
 
