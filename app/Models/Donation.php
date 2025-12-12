@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donation extends Model
 {
-    protected $fillable = ['item_id','donor_id','submitted_at'];
+    protected $fillable = [
+        'item_id',
+        'donor_id',
+        'submitted_at'
+    ];
 
     public function item()
     {

@@ -30,9 +30,4 @@ class Item extends Model
     {
         return $this->hasOne(Donation::class);
     }
-
-    public function distribution()
-    {
-        return $this->hasOne(Distribution::class);
-    }
 }
