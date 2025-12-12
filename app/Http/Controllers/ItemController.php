@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ItemRequest;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,12 +23,10 @@ class ItemController extends Controller
         $query->where('name', 'like', '%' . request('search') . '%');
     }
 
-    // filter dari kategori
     if (request('category')) {
         $query->where('category_id', request('category'));
     }
 
-    // filter dari status
     if (request('status')) {
         $query->where('status', request('status'));
     }
@@ -53,11 +52,18 @@ class ItemController extends Controller
             $data['photo'] = $request->file('photo')->store('items', 'public');
         }
 
-        Item::create($data);
+        $item = Item::create($data);
+
+        Donation::create([
+            'item_id' => $item->id,
+            'donor_id' => Auth::id(),
+            'submitted_at' => now(),
+        ]);
 
         return redirect()->route('items.index')
             ->with('success','Barang berhasil ditambahkan');
     }
+
 
     public function edit(Item $item)
     {
@@ -103,5 +109,18 @@ class ItemController extends Controller
 
         return back()->with('success','Status barang diperbarui');
     }
+
+    public function myDonations()
+    {
+        $items = Item::with('category')
+            ->where('donor_id', Auth::id())
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('donations.index', [
+            'donations' => $items
+        ]);
+    }
+
 
 }
