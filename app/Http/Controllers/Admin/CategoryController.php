@@ -24,8 +24,6 @@ class CategoryController extends Controller
     {
         Category::create($request->validated());
 
-        // --- PERUBAHAN DISINI ---
-        // Menggunakan back() agar tetap di Dashboard setelah input
         return back()->with('success', 'Kategori berhasil ditambahkan');
     }
 

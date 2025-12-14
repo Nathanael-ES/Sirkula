@@ -2,12 +2,10 @@
 
 @section('content')
 
-{{-- 1. CSS STYLING (Tema Dashboard & Modal Blur) --}}
 <style>
     body { font-family: 'Poppins', sans-serif !important; }
     .fs-22 { font-size: 1.375rem; }
 
-    /* Header Biru */
     .dashboard-header {
         background-color: #3C91FF;
         color: white;
@@ -18,14 +16,12 @@
         width: 100%;
     }
 
-    /* Posisi Kartu Overlap */
     .cards-container {
         margin-top: -8rem; 
         position: relative; 
         z-index: 10;
     }
 
-    /* --- STYLING MODAL (Fix Blur & Z-Index) --- */
     .modal { z-index: 10055 !important; }
     .modal-backdrop { z-index: 10050 !important; }
     
@@ -52,19 +48,14 @@
     }
 </style>
 
-{{-- 2. HEADER BIRU --}}
 <div class="container-fluid dashboard-header">
     <div class="container mt-0">
         <h2 class="fw-semibold">{{ __('messages.users') }}</h2> </div>
 </div>
 
-{{-- 3. KONTEN UTAMA --}}
 <div class="container cards-container">
-    
     <div class="row">
         <div class="col-12">
-            
-            {{-- Header Tabel --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="fw-bold text-white mb-0">{{ __('messages.users') }}</h5>
                 <button class="btn btn-light text-primary fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createUserModal">
@@ -72,7 +63,6 @@
                 </button>
             </div>
 
-            {{-- Kartu Tabel --}}
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                 <div class="card-body p-0">
                     <table class="table table-hover align-middle mb-0">
@@ -146,32 +136,27 @@
     </div>
 </div>
 
-{{-- 4. MODALS --}}
 @include('users.modals.create')
 @include('users.modals.edit')
 
-{{-- 5. JAVASCRIPT LOGIC --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var editUserModal = document.getElementById('editUserModal');
         
         if (editUserModal) {
             editUserModal.addEventListener('show.bs.modal', function (event) {
-                // 1. Ambil tombol yang diklik
                 var button = event.relatedTarget;
-                
-                // 2. Ambil data dari atribut tombol
                 var id = button.getAttribute('data-id');
                 var name = button.getAttribute('data-name');
                 var email = button.getAttribute('data-email');
                 var role = button.getAttribute('data-role');
-                
-                // 3. Isi form dalam modal
+
+
                 editUserModal.querySelector('#editName').value = name;
                 editUserModal.querySelector(    '#editEmail').value = email;
                 editUserModal.querySelector('#editRole').value = role;
 
-                // 4. Update URL Action Form
+
                 var form = editUserModal.querySelector('#editUserForm');
                 var updateUrl = "{{ route('admin.users.update', ':id') }}";
                 updateUrl = updateUrl.replace(':id', id);

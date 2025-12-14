@@ -2,13 +2,11 @@
 
 @section('content')
 
-    {{-- 1. CSS STYLING --}}
     <style>
         body {
             font-family: 'Poppins', sans-serif !important;
         }
 
-        /* Header Biru */
         .dashboard-header {
             background-color: #3C91FF;
             color: white;
@@ -19,14 +17,12 @@
             width: 100%;
         }
 
-        /* Kartu Overlap */
         .cards-container {
             margin-top: -8rem;
             position: relative;
             z-index: 10;
         }
 
-        /* Modal Styling */
         .modal {
             z-index: 10055 !important;
         }
@@ -71,7 +67,6 @@
         }
     </style>
 
-    {{-- 2. HEADER --}}
     <div class="container-fluid dashboard-header">
         <div class="container mt-0">
             <div class="d-flex justify-content-between align-items-center">
@@ -79,7 +74,6 @@
                     <h2 class="fw-semibold">{{ __('messages.distribution_list') }}</h2>
                     <p class="text-white-50 mb-0">Riwayat penyaluran barang bantuan kepada penerima.</p>
                 </div>
-                {{-- Tombol Trigger Modal --}}
                 <button class="btn btn-light text-primary fw-bold shadow-sm px-4" data-bs-toggle="modal"
                     data-bs-target="#createDistributionModal">
                     <i class='bx bx-plus me-1'></i> {{ __('messages.add_distribution') }}
@@ -88,12 +82,9 @@
         </div>
     </div>
 
-    {{-- 3. CONTENT --}}
     <div class="container cards-container">
         <div class="row">
             <div class="col-12">
-
-                {{-- Search Bar --}}
                 <div class="card border-0 shadow-sm rounded-4 mb-4">
                     <div class="card-body p-3">
                         <form method="GET" class="row g-2 align-items-center">
@@ -115,7 +106,6 @@
                     </div>
                 </div>
 
-                {{-- Tabel Data --}}
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                     <div class="card-body p-0">
                         <table class="table table-hover align-middle mb-0">
@@ -202,7 +192,6 @@
         </div>
     </div>
 
-    {{-- 4. MODAL CREATE DISTRIBUTION --}}
     <div class="modal fade" id="createDistributionModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -213,8 +202,6 @@
                 <form action="{{ route('distributions.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-
-                        {{-- Pilih Barang --}}
                         <div class="mb-3">
                             <label class="form-label small text-muted fw-bold">{{ __('messages.item_name') }}</label>
                             <select name="item_id" class="form-select @error('item_id') is-invalid @enderror" required>
@@ -230,7 +217,6 @@
                             @error('item_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
-                        {{-- Pilih Penerima --}}
                         <div class="mb-3">
                             <label class="form-label small text-muted fw-bold">{{ __('messages.recipient_name') }}</label>
                             <select name="recipient_id" class="form-select @error('recipient_id') is-invalid @enderror"
@@ -255,7 +241,6 @@
         </div>
     </div>
 
-    {{-- 5. SCRIPT (Open Modal if Error) --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             @if ($errors->any())

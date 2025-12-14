@@ -95,4 +95,29 @@ return [
     'auth_failed' => 'Email atau password salah.',
     'logout_success' => 'Anda berhasil logout.',
     'confirm_delete' => 'Yakin ingin menghapus data ini?',
+    
+    // Dashboard
+    'item_count' => 'Data Barang',
+    'ready_count' => 'Siap Kirim',
+    'distribution_count' => 'Daftar Distribusi',
+    'recipient_count' => 'Penerima',
+    'category_list' => 'Daftar Kategori',
+    'recipient_name_label' => 'Nama Penerima',
+    'no_changes_today' => 'Tidak ada perubahan hari ini',
+    'no_activity' => 'Tidak ada aktivitas',
+    'no_new_user' => 'Tidak ada pendaftar baru',
+    'new_users' => 'Akun Baru',
+    'new_today' => 'Baru Hari Ini',
+    'new_accounts' => 'Akun Baru',
+    'contact_info' => 'Info Kontak',
+    
+    // Items
+    'item_catalog' => 'Katalog Barang',
+    'item_list_desc' => 'Kelola stok dan distribusi barang bantuan.',
+    'search_item' => 'Cari nama barang...',
+    'all_category' => 'Semua Kategori',
+    'all_status' => 'Semua Status',
+    'ready_to_send' => 'Siap Kirim',
+    'no_item_data' => 'Belum ada data barang.',
+    'item_search' => 'Pencarian',
 ];

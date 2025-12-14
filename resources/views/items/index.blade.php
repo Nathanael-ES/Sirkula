@@ -2,12 +2,10 @@
 
 @section('content')
 
-{{-- 1. CSS STYLING --}}
 <style>
     body { font-family: 'Poppins', sans-serif !important; }
     .fs-22 { font-size: 1.375rem; }
 
-    /* Header Biru Standard */
     .dashboard-header {
         background-color: #3C91FF;
         color: white;
@@ -17,14 +15,12 @@
         margin: 0;
     }
 
-    /* Posisi Kartu Overlap */
     .cards-container {
         margin-top: -9rem; 
         position: relative; 
         z-index: 10;
     }
 
-    /* Styling Kartu Katalog */
     .catalog-card {
         border: none;
         border-radius: 12px;
@@ -39,7 +35,6 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 
-    /* Area Gambar */
     .catalog-img-wrapper {
         height: 180px; width: 100%;
         background-color: #f8f9fa;
@@ -48,7 +43,6 @@
     }
     .catalog-img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Fix Modal Z-Index & Blur */
     .modal { z-index: 10055 !important; }
     .modal-backdrop { z-index: 10050 !important; }
     .modal-backdrop.show {
@@ -64,67 +58,60 @@
     .form-control:focus, .form-select:focus { border-color: #3C91FF; box-shadow: 0 0 0 3px rgba(60, 145, 255, 0.1); }
 </style>
 
-{{-- 2. HEADER --}}
 <div class="container-fluid dashboard-header">
     <div class="container mt-0">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="fw-semibold">Katalog Barang</h2>
-                <p class="text-white-50 mb-0">Kelola stok dan distribusi barang bantuan.</p>
+                <h2 class="fw-semibold">{{ __('messages.item_catalog') }}</h2>
+                <p class="text-white-50 mb-0">{{ __('messages.item_list_desc') }}</p>
             </div>
             <button class="btn btn-light text-primary fw-bold shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#createItemModal">
-                <i class='bx bx-plus me-1'></i> Tambah
+                <i class='bx bx-plus me-1'></i> {{ __('messages.add_item') }}
             </button>
         </div>
     </div>
 </div>
 
-{{-- 3. KONTEN (FILTER & GRID) --}}
 <div class="container cards-container">
-    
-    {{-- Filter Card --}}
     <div class="card border-0 shadow-sm rounded-4 mb-4">
         <div class="card-body p-4">
             <form method="GET" class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label small text-muted fw-bold">Pencarian</label>
+                    <label class="form-label small text-muted fw-bold">{{ __('messages.item_search') }}</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0"><i class='bx bx-search text-muted'></i></span>
-                        <input type="text" name="search" value="{{ request('search') }}" class="form-control border-start-0" placeholder="Cari nama barang...">
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control border-start-0" placeholder="{{ __('messages.search_item') }}">
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label small text-muted fw-bold">Kategori</label>
+                    <label class="form-label small text-muted fw-bold">{{ __('messages.category') }}</label>
                     <select name="category" class="form-select">
-                        <option value="">Semua Kategori</option>
+                        <option value="">{{ __('messages.all_category') }}</option>
                         @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label small text-muted fw-bold">Status</label>
+                    <label class="form-label small text-muted fw-bold">{{ __('messages.status') }}</label>
                     <select name="status" class="form-select">
-                        <option value="">Semua Status</option>
-                        <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
-                        <option value="verified" {{ request('status')=='verified'?'selected':'' }}>Terverifikasi</option>
-                        <option value="ready" {{ request('status')=='ready'?'selected':'' }}>Siap Distribusi</option>
+                        <option value="">{{ __('messages.all_status') }}</option>
+                        <option value="pending" {{ request('status')=='pending'?'selected':'' }}>{{ __('messages.pending') }}</option>
+                        <option value="verified" {{ request('status')=='verified'?'selected':'' }}>{{ __('messages.verified') }}</option>
+                        <option value="ready" {{ request('status')=='ready'?'selected':'' }}>{{ __('messages.ready') }}</option>
                     </select>
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-primary w-100 fw-bold" style="background-color: #3C91FF; border:none;">Filter</button>
+                    <button class="btn btn-primary w-100 fw-bold" style="background-color: #3C91FF; border:none;">{{ __('messages.filter') }}</button>
                 </div>
             </form>
         </div>
     </div>
 
-    {{-- Grid Barang --}}
     <div class="row g-4 mt-2">
         @forelse($items as $item)
         <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="catalog-card h-100 d-flex flex-column">
-                
-                {{-- Foto --}}
                 <div class="catalog-img-wrapper">
                     @if($item->photo)
                         <img src="{{ asset('storage/'.$item->photo) }}" class="catalog-img">
@@ -134,14 +121,13 @@
                         </div>
                     @endif
                     <div class="position-absolute top-0 end-0 m-3">
-                        @if($item->status == 'pending') <span class="badge bg-warning text-dark shadow-sm">Pending</span>
-                        @elseif($item->status == 'verified') <span class="badge bg-info text-white shadow-sm">Verified</span>
-                        @elseif($item->status == 'ready') <span class="badge bg-success shadow-sm">Siap Kirim</span>
+                        @if($item->status == 'pending') <span class="badge bg-warning text-dark shadow-sm">{{ __('messages.pending') }}</span>
+                        @elseif($item->status == 'verified') <span class="badge bg-info text-white shadow-sm">{{ __('messages.verified') }}</span>
+                        @elseif($item->status == 'ready') <span class="badge bg-success shadow-sm">{{ __('messages.ready_to_send') }}</span>
                         @else <span class="badge bg-secondary shadow-sm">{{ ucfirst($item->status) }}</span> @endif
                     </div>
                 </div>
 
-                {{-- Info --}}
                 <div class="p-3 flex-grow-1">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                         <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 small">
@@ -156,11 +142,9 @@
                     </p>
                 </div>
 
-                {{-- Footer Tombol --}}
                 <div class="p-3 border-top bg-light bg-opacity-25">
                     <div class="row g-2">
                         <div class="col-6">
-                            {{-- [UPDATE 1] Menambahkan data-status --}}
                             <button class="btn btn-outline-secondary btn-sm w-100 fw-medium" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#editItemModal"
@@ -188,7 +172,7 @@
         </div>
         @empty
         <div class="col-12 text-center py-5 text-muted">
-            <i class='bx bx-box fs-1 mb-3 opacity-50'></i><p>Belum ada data barang.</p>
+            <i class='bx bx-box fs-1 mb-3 opacity-50'></i><p>{{ __('messages.no_item_data') }}</p>
         </div>
         @endforelse
     </div>
@@ -196,11 +180,9 @@
     <div class="mt-4">{{ $items->links() }}</div>
 </div>
 
-{{-- 4. PANGGIL MODAL --}}
 @include('items.modals.create')
 @include('items.modals.edit')
 
-{{-- 5. JAVASCRIPT LOGIC --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var editItemModal = document.getElementById('editItemModal');
@@ -208,30 +190,27 @@
         if (editItemModal) {
             editItemModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
-                
-                // Ambil data
                 var id = button.getAttribute('data-id');
                 var name = button.getAttribute('data-name');
                 var category = button.getAttribute('data-category');
                 var condition = button.getAttribute('data-condition');
                 var description = button.getAttribute('data-description');
                 var photoUrl = button.getAttribute('data-photo');
-                // [UPDATE 2] Ambil data status
                 var status = button.getAttribute('data-status'); 
                 
-                // Isi Form
+
                 editItemModal.querySelector('#editName').value = name;
                 editItemModal.querySelector('#editCategory').value = category;
                 editItemModal.querySelector('#editCondition').value = condition;
                 editItemModal.querySelector('#editDescription').value = description;
 
-                // [UPDATE 3] Isi Dropdown Status (Jika input ada di modal)
+
                 var statusSelect = editItemModal.querySelector('#editStatus');
                 if(statusSelect) {
                     statusSelect.value = status;
                 }
 
-                // Handle Preview Foto
+
                 var previewContainer = editItemModal.querySelector('#editPhotoPreviewContainer');
                 var previewImg = editItemModal.querySelector('#editPhotoPreview');
                 
@@ -242,7 +221,6 @@
                     previewContainer.classList.add('d-none');
                 }
 
-                // Update URL Action
                 var form = editItemModal.querySelector('#editItemForm');
                 var updateUrl = "{{ route('items.update', ':id') }}";
                 updateUrl = updateUrl.replace(':id', id);
