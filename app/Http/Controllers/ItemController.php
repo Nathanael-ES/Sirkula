@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Donation;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -49,7 +50,12 @@ class ItemController extends Controller
         $data['donor_id'] = Auth::id();
 
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('items', 'public');
+            try {
+                $data['photo'] = $request->file('photo')->store('items', 'public');
+            } catch (\Exception $e) {
+                Log::error('Photo upload failed: ' . $e->getMessage());
+                // Continue without photo
+            }
         }
 
         $item = Item::create($data);
@@ -84,9 +90,13 @@ class ItemController extends Controller
         }
 
         if ($request->hasFile('photo')) {
-            if ($item->photo)
-                Storage::disk('public')->delete($item->photo);
-            $data['photo'] = $request->file('photo')->store('items', 'public');
+            try {
+                if ($item->photo)
+                    Storage::disk('public')->delete($item->photo);
+                $data['photo'] = $request->file('photo')->store('items', 'public');
+            } catch (\Exception $e) {
+                Log::error('Photo upload failed: ' . $e->getMessage());
+            }
         }
 
         $item->update($data);
