@@ -1,0 +1,46 @@
+{
+    "version": 2,
+    "framework": null,
+    "functions": {
+        "api/index.php": { "runtime": "vercel-php@0.7.4" }
+    },
+    "routes": [
+        {
+            "src": "^/(.*)",
+            "headers": {
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+            },
+            "dest": "/api/index.php"
+        },
+        {
+            "src": "^/.*",
+            "status": 308,
+            "headers": {
+                "location": "https://$host$pathname$query"
+            }
+        }
+    ],
+    "env": {
+        "APP_ENV": "production",
+        "APP_DEBUG": "true",
+        "APP_URL": "",
+        "APP_KEY": "base64:3zj4iJ3U6hV3zezpzu9o5M7QW6kDMFTJoTfoXf4wtaw=",
+        "DB_CONNECTION": "mysql",
+        "DB_HOST": "zyrbxa.h.filess.io",
+        "DB_PORT": "61002",
+        "DB_DATABASE": "sirkula_smilewear",
+        "DB_USERNAME": "sirkula_smilewear",
+        "DB_PASSWORD": "ffa11373c829f6ed7870631b93c55f1d468a3441",
+
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "VIEW_COMPILED_PATH": "/tmp",
+
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "cookie"
+    }
+}
