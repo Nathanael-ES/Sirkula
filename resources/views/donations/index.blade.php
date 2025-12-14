@@ -139,7 +139,7 @@
 
                                             @if(auth()->user()->role !== 'donatur' || auth()->id() == $d->user_id)
                                             <td class="text-end pe-4">
-                                                <form method="POST" action="{{ route('donations.destroy', $d->id) }}" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete_donation') }}')">">
+                                                <form method="POST" action="{{ route('donations.destroy', $d->id) }}" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete_donation') }}')">
                                                     @csrf @method('DELETE')
                                                     <button class="btn btn-link text-danger p-0 opacity-75 hover-opacity-100" title="{{ __('messages.delete') }}">
                                                         <i class='bx bxs-trash fs-5'></i>
