@@ -23,12 +23,10 @@ class ItemController extends Controller
             $query->where('name', 'like', '%' . request('search') . '%');
         }
 
-        // filter dari kategori
         if (request('category')) {
             $query->where('category_id', request('category'));
         }
 
-        // filter dari status
         if (request('status')) {
             $query->where('status', request('status'));
         }
@@ -54,10 +52,8 @@ class ItemController extends Controller
             $data['photo'] = $request->file('photo')->store('items', 'public');
         }
 
-        // HANYA SATU INSERT ITEM
         $item = Item::create($data);
 
-        // otomatis buat record donasi
         Donation::create([
             'item_id' => $item->id,
             'donor_id' => Auth::id(),

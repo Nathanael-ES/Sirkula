@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('condition')->default('layak'); 
-                // opsi: bagus, layak, rusak ringan
             $table->string('photo')->nullable(); 
             $table->enum('status', ['pending','verified','ready','distributed'])->default('pending');
             $table->timestamps();

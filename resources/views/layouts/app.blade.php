@@ -35,15 +35,12 @@
     }
 
     .navbar-nav .nav-link {
-        /* jarak antar menu */
         margin-right: 18px; 
     }
 </style>
 
 </head>
 <body>
-{{-- navbar --}}
-
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container py-2">
 
@@ -73,7 +70,6 @@
             </ul>
 
             <ul class="navbar-nav ms-auto">
-                <!-- Language Switch -->
                 <li class="nav-item dropdown me-3">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         {{ strtoupper(app()->getLocale()) }}
@@ -84,7 +80,6 @@
                     </ul>
                 </li>
 
-                <!-- User dropdown -->
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">

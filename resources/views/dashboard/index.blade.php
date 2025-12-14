@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center gap-2 mt-2 small">
-                {{-- Logika: Jika ada data baru hari ini, titik ijo nyala --}}
+                {{--kalo ada data yang baru hari ini, titik ijonya nyala--}}
                 @if($recentReady > 0)
                     <i class='bx bxs-circle' style='color:#6ffa66; font-size: 8px;'></i> 
                     <span class="text-muted">+{{ $recentReady }} Baru Hari Ini</span>
@@ -165,11 +165,9 @@
         </div>
     </div>
     
-    {{-- Spacer --}}
     <div style="margin-top: 2rem;"></div>
 
     <div class="row g-4">
-        {{-- Tabel Kiri: Kategori --}}
         <div class="col-md-6">
             <div class="section-title d-flex justify-content-between fs-22 align-items-center mb-3">
                 <span class="fw-bold">{{ __('messages.category_list') }}</span>
@@ -219,7 +217,6 @@
             </div>
         </div>
         
-        {{-- Tabel Kanan: Penerima --}}
         <div class="col-md-6">
             <div class="section-title d-flex justify-content-between fs-22 align-items-center mb-3">
                 <span class="fw-bold">{{ __('messages.recipient_list') }}</span>

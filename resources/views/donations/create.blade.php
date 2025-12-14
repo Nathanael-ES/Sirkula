@@ -2,12 +2,10 @@
 
 @section('content')
 
-{{-- 1. CSS STYLING (Sama seperti halaman Users) --}}
 <style>
     body { font-family: 'Poppins', sans-serif !important; }
     .fs-22 { font-size: 1.375rem; }
 
-    /* Header Biru */
     .dashboard-header {
         background-color: #3C91FF;
         color: white;
@@ -18,14 +16,12 @@
         width: 100%;
     }
 
-    /* Posisi Kartu Overlap */
     .cards-container {
         margin-top: -8rem; 
         position: relative; 
         z-index: 10;
     }
 
-    /* --- STYLING MODAL --- */
     .modal { z-index: 10055 !important; }
     .modal-backdrop.show {
         backdrop-filter: blur(5px);
@@ -48,7 +44,6 @@
     }
 </style>
 
-{{-- 2. HEADER BIRU --}}
 <div class="container-fluid dashboard-header">
     <div class="container mt-0">
         <h2 class="fw-semibold">{{ __('messages.donation_list') }}</h2>
@@ -56,15 +51,10 @@
     </div>
 </div>
 
-{{-- 3. KONTEN UTAMA --}}
 <div class="container cards-container">
     <div class="row">
         <div class="col-12">
-            
-            {{-- Toolbar: Search & Add Button --}}
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 gap-3">
-                
-                {{-- Form Pencarian --}}
                 <form method="GET" class="w-100 w-md-50 d-flex shadow-sm rounded-3 overflow-hidden">
                     <input type="text" name="search" class="form-control border-0 px-3 py-2" 
                            placeholder="{{ __('messages.search') }}..." 
@@ -74,14 +64,12 @@
                     </button>
                 </form>
 
-                {{-- Tombol Tambah (Memicu Modal) --}}
                 <button class="btn btn-light text-primary fw-bold shadow-sm py-2 px-4" 
                         data-bs-toggle="modal" data-bs-target="#createDonationModal">
                     <i class='bx bx-plus me-1'></i> {{ __('messages.add_donation') }}
                 </button>
             </div>
 
-            {{-- Kartu Tabel --}}
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                 <div class="card-body p-0">
                     <table class="table table-hover align-middle mb-0">
@@ -136,8 +124,7 @@
                         </tbody>
                     </table>
                 </div>
-                
-                {{-- Pagination --}}
+
                 @if($donations->hasPages())
                 <div class="card-footer bg-white border-0 py-3">
                     {{ $donations->links() }}
@@ -149,7 +136,6 @@
     </div>
 </div>
 
-{{-- 4. MODAL CREATE DONATION (Pengganti Halaman Create) --}}
 <div class="modal fade" id="createDonationModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -184,7 +170,6 @@
     </div>
 </div>
 
-{{-- 5. SCRIPT ERROR HANDLING (Agar Modal Terbuka jika Gagal Validasi) --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         @if ($errors->any())
