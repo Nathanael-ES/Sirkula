@@ -69,11 +69,12 @@
     <div class="container mt-0">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="fw-semibold">Katalog Barang</h2>
+                <h2 class="fw-semibold">{{ __('messages.item_catalog') }}</h2>
+                <p class="text-white-50 mb-0">{{ __('messages.item_list_desc') }}</p>
                 <p class="text-white-50 mb-0">Kelola stok dan distribusi barang bantuan.</p>
             </div>
             <button class="btn btn-light text-primary fw-bold shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#createItemModal">
-                <i class='bx bx-plus me-1'></i> Tambah
+                <i class='bx bx-plus me-1'></i> {{ __('messages.add_item') }}
             </button>
         </div>
     </div>
@@ -87,10 +88,10 @@
         <div class="card-body p-4">
             <form method="GET" class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label small text-muted fw-bold">Pencarian</label>
+                    <label class="form-label small text-muted fw-bold">{{ __('messages.item_search') }}</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0"><i class='bx bx-search text-muted'></i></span>
-                        <input type="text" name="search" value="{{ request('search') }}" class="form-control border-start-0" placeholder="Cari nama barang...">
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control border-start-0" placeholder="{{ __('messages.search_item') }}">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -103,16 +104,16 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label small text-muted fw-bold">Status</label>
+                    <label class="form-label small text-muted fw-bold">{{ __('messages.status') }}</label>
                     <select name="status" class="form-select">
-                        <option value="">Semua Status</option>
+                        <option value="">{{ __('messages.all_status') }}</option>
                         <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
                         <option value="verified" {{ request('status')=='verified'?'selected':'' }}>Terverifikasi</option>
                         <option value="ready" {{ request('status')=='ready'?'selected':'' }}>Siap Distribusi</option>
                     </select>
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn btn-primary w-100 fw-bold" style="background-color: #3C91FF; border:none;">Filter</button>
+                    <button class="btn btn-primary w-100 fw-bold" style="background-color: #3C91FF; border:none;">{{ __('messages.filter') }}</button>
                 </div>
             </form>
         </div>
@@ -134,9 +135,9 @@
                         </div>
                     @endif
                     <div class="position-absolute top-0 end-0 m-3">
-                        @if($item->status == 'pending') <span class="badge bg-warning text-dark shadow-sm">Pending</span>
-                        @elseif($item->status == 'verified') <span class="badge bg-info text-white shadow-sm">Verified</span>
-                        @elseif($item->status == 'ready') <span class="badge bg-success shadow-sm">Siap Kirim</span>
+                        @if($item->status == 'pending') <span class="badge bg-warning text-dark shadow-sm">{{ __('messages.pending') }}</span>
+                        @elseif($item->status == 'verified') <span class="badge bg-info text-white shadow-sm">{{ __('messages.verified') }}</span>
+                        @elseif($item->status == 'ready') <span class="badge bg-success shadow-sm">{{ __('messages.ready_to_send') }}</span>
                         @else <span class="badge bg-secondary shadow-sm">{{ ucfirst($item->status) }}</span> @endif
                     </div>
                 </div>
@@ -188,7 +189,7 @@
         </div>
         @empty
         <div class="col-12 text-center py-5 text-muted">
-            <i class='bx bx-box fs-1 mb-3 opacity-50'></i><p>Belum ada data barang.</p>
+            <i class='bx bx-box fs-1 mb-3 opacity-50'></i><p>{{ __('messages.no_item_data') }}</p>
         </div>
         @endforelse
     </div>

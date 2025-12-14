@@ -80,7 +80,7 @@
             <div class="card stat-card p-4 h-100">
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
-                        <h6 class="fs-22 text-muted mb-2">Data Barang</h6>
+                        <h6 class="fs-22 text-muted mb-2">{{ __('messages.item_count') }}</h6>
                         <h2 class="fs-1 mt-4 text-dark">{{ $totalItems ?? 0 }}</h2>
                     </div>
                     <div class="icon-box bg-icon-blue">
@@ -100,7 +100,7 @@
         <div class="card stat-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h6 class="fs-22 text-muted mb-2">Siap Kirim</h6>
+                    <h6 class="fs-22 text-muted mb-2">{{ __('messages.ready_count') }}</h6>
                     <h2 class="fs-1 mt-4 text-dark">{{ $ready ?? 0 }}</h2>
                 </div>
                 <div class="icon-box bg-icon-blue">
@@ -114,7 +114,7 @@
                     <span class="text-muted">+{{ $recentReady }} Baru Hari Ini</span>
                 @else
                     <i class='bx bxs-circle' style='color:#ff5555; font-size: 8px;'></i>
-                    <span class="text-muted">Tidak ada perubahan hari ini</span>
+                    <span class="text-muted">{{ __('messages.no_changes_today') }}</span>
                 @endif
             </div>
         </div>
@@ -124,7 +124,7 @@
         <div class="card stat-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h6 class="fs-22 text-muted mb-2">Daftar Distribusi</h6>
+                    <h6 class="fs-22 text-muted mb-2">{{ __('messages.distribution_count') }}</h6>
                     <h2 class="fs-1 mt-4 text-dark">{{ $totalDistribution ?? 0 }}</h2>
                 </div>
                 <div class="icon-box bg-icon-blue">
@@ -137,7 +137,7 @@
                     <span class="text-muted">+{{ $recentDist }} Dikirim Hari Ini</span>
                 @else
                 <i class='bx bxs-circle' style='color:#ff5555; font-size: 8px;'></i>
-                    <span class="text-muted">Tidak ada aktivitas</span>
+                    <span class="text-muted">{{ __('messages.no_activity') }}</span>
                 @endif
             </div>
         </div>
@@ -147,7 +147,7 @@
         <div class="card stat-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h6 class="fs-22 text-muted mb-2">Penerima</h6>
+                    <h6 class="fs-22 text-muted mb-2">{{ __('messages.recipient_count') }}</h6>
                     <h2 class="fs-1 mt-4 text-dark">{{ $totalRecipients ?? 0 }}</h2>
                 </div>
                 <div class="icon-box bg-icon-blue">
@@ -159,7 +159,7 @@
                     <i class='bx bxs-circle' style='color:#6ffa66; font-size: 8px;'></i> 
                     <span class="text-muted">+{{ $recentRecipients }} Akun Baru</span>
                 @else
-                    <span class="text-muted">Tidak ada pendaftar baru</span>
+                    <span class="text-muted">{{ __('messages.no_new_user') }}</span>
                 @endif
             </div>
         </div>
@@ -172,7 +172,7 @@
         {{-- Tabel Kiri: Kategori --}}
         <div class="col-md-6">
             <div class="section-title d-flex justify-content-between fs-22 align-items-center mb-3">
-                <span class="fw-bold">Daftar Kategori</span>
+                <span class="fw-bold">{{ __('messages.category_list') }}</span>
                 @if(auth()->user()->role === 'admin')
                 <button class="btn btn-sm text-secondary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
                     <i class='bx bx-plus fs-4'></i> 
@@ -184,7 +184,7 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="fw-normal ps-4 py-3">Nama Kategori</th>
+                            <th class="fw-normal ps-4 py-3">{{ __('messages.category_name') }}</th>
                             <th class="fw-normal py-3">Deskripsi</th>
                             <th></th>
                         </tr>
@@ -204,7 +204,7 @@
                                    data-description="{{ $c->description }}">
                                     <i class='bx bxs-pencil fs-5'></i>
                                 </a> 
-                                <form action="{{ route('admin.categories.destroy', $c->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus kategori ini?')">
+                                <form action="{{ route('admin.categories.destroy', $c->id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete') }}')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="border-0 bg-transparent text-secondary opacity-75 p-0">
                                         <i class='bx bxs-trash fs-5'></i>
@@ -222,7 +222,7 @@
         {{-- Tabel Kanan: Penerima --}}
         <div class="col-md-6">
             <div class="section-title d-flex justify-content-between fs-22 align-items-center mb-3">
-                <span class="fw-bold">Daftar Penerima</span>
+                <span class="fw-bold">{{ __('messages.recipient_list') }}</span>
                 @if(auth()->user()->role === 'admin')
                 <button class="btn btn-sm text-secondary" data-bs-toggle="modal" data-bs-target="#createRecipientModal">
                     <i class='bx bx-plus fs-4'></i> 
@@ -234,7 +234,7 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="fw-normal ps-4 py-3">Nama Penerima</th>
+                            <th class="fw-normal ps-4 py-3">{{ __('messages.recipient_name') }}</th>
                             <th class="fw-normal py-3">Info Kontak</th>
                             <th></th>
                         </tr>
@@ -255,7 +255,7 @@
                                    data-phone="{{ $r->phone }}">
                                     <i class='bx bxs-pencil fs-5'></i>
                                 </a> 
-                                <form action="{{ route('recipients.destroy', $r->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus penerima ini?')">
+                                <form action="{{ route('recipients.destroy', $r->id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete') }}')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="border-0 bg-transparent text-secondary opacity-75 p-0">
                                         <i class='bx bxs-trash fs-5'></i>

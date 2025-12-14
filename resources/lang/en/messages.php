@@ -95,4 +95,26 @@ return [
     'auth_failed' => 'These credentials do not match our records.',
     'logout_success' => 'You have been logged out.',
     'confirm_delete' => 'Are you sure you want to delete this?',
+    
+    // Dashboard
+    'item_count' => 'Item Count',
+    'ready_count' => 'Ready to Send',
+    'distribution_count' => 'Distribution List',
+    'recipient_count' => 'Recipients',
+    'category_list' => 'Category List',
+    'recipient_name_label' => 'Recipient Name',
+    'no_changes_today' => 'No changes today',
+    'no_activity' => 'No activity',
+    'no_new_user' => 'No new users',
+    'new_users' => 'New Accounts',
+    
+    // Items
+    'item_catalog' => 'Item Catalog',
+    'item_list_desc' => 'Manage inventory and distribution of donated items.',
+    'search_item' => 'Search item name...',
+    'all_category' => 'All Categories',
+    'all_status' => 'All Status',
+    'ready_to_send' => 'Ready to Send',
+    'no_item_data' => 'No item data available.',
+    'item_search' => 'Search',
 ];
