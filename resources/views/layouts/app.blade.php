@@ -37,6 +37,11 @@
     .navbar-nav .nav-link {
         margin-right: 18px; 
     }
+    
+    .nav-link.active-bold {
+        font-weight: 700 !important;
+        color: #0d6efd !important;
+    }
 </style>
 
 </head>
@@ -55,14 +60,40 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('items.index') }}">{{ __('messages.items') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('donations.index') }}">{{ __('messages.donations') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('distributions.index') }}">{{ __('messages.distributions') }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active-bold' : '' }}" 
+                       href="{{ route('dashboard') }}">
+                       {{ __('messages.dashboard') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('items.*') ? 'active-bold' : '' }}" 
+                       href="{{ route('items.index') }}">
+                       {{ __('messages.items') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('donations.*') ? 'active-bold' : '' }}" 
+                       href="{{ route('donations.index') }}">
+                       {{ __('messages.donations') }}
+                    </a>
+                </li>
+
+                @if(auth()->check() && auth()->user()->role !== 'donatur')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('distributions.*') ? 'active-bold' : '' }}" 
+                           href="{{ route('distributions.index') }}">
+                           {{ __('messages.distributions') }}
+                        </a>
+                    </li>
+                @endif
 
                 @if(auth()->check() && auth()->user()->role === 'admin')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.users.index') }}">
+                        <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active-bold' : '' }}" 
+                           href="{{ route('admin.users.index') }}">
                             User Management
                         </a>
                     </li>
