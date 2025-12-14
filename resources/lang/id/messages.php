@@ -39,6 +39,10 @@ return [
     'verified'      => 'Terverifikasi',
     'ready'         => 'Siap Distribusi',
     'distributed'   => 'Terdistribusi',
+    'donation_desc' => 'Daftar barang donasi yang masuk ke sistem.',
+    'search_donation' => 'Cari nama barang atau donatur...',
+    'no_donation_data' => 'Tidak ada data donasi ditemukan.',
+    'confirm_delete_donation' => 'Yakin ingin menghapus donasi ini?',
 
     // Kategori
     'add_category'  => 'Tambah Kategori',
@@ -59,6 +63,9 @@ return [
     'add_distribution'  => 'Tambah Distribusi',
     'distributed_at'    => 'Tanggal Distribusi',
     'volunteer'         => 'Relawan',
+    'distribution_desc' => 'Riwayat penyaluran barang bantuan kepada penerima.',
+    'no_ready_items'    => 'Tidak ada barang yang siap didistribusikan.',
+    'confirm_delete_distribution' => 'Yakin ingin menghapus data distribusi ini?',
 
     // User
     'users'        => 'Daftar User',

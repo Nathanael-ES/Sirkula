@@ -72,7 +72,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h2 class="fw-semibold">{{ __('messages.distribution_list') }}</h2>
-                    <p class="text-white-50 mb-0">Riwayat penyaluran barang bantuan kepada penerima.</p>
+                    <p class="text-white-50 mb-0">{{ __('messages.distribution_desc') }}</p>
                 </div>
                 <button class="btn btn-light text-primary fw-bold shadow-sm px-4" data-bs-toggle="modal"
                     data-bs-target="#createDistributionModal">
@@ -161,7 +161,7 @@
                                         <td class="text-end pe-4">
                                             <form action="{{ route('distributions.destroy', $dist->id) }}" method="POST"
                                                 class="d-inline"
-                                                onsubmit="return confirm('Yakin ingin menghapus data distribusi ini?')">
+                                                onsubmit="return confirm('{{ __('messages.confirm_delete_distribution') }}')">
                                                 @csrf @method('DELETE')
                                                 <button class="btn btn-link text-danger p-0 opacity-75 hover-opacity-100"
                                                     title="{{ __('messages.delete') }}">
@@ -211,7 +211,7 @@
                                         {{ $item->name }} (Stok: {{ $item->status }})
                                     </option>
                                 @empty
-                                    <option value="" disabled>Tidak ada barang yang Ready</option>
+                                    <option value="" disabled>{{ __('messages.no_ready_items') }}</option>
                                 @endforelse
                             </select>
                             @error('item_id') <div class="invalid-feedback">{{ $message }}</div> @enderror

@@ -39,6 +39,10 @@ return [
     'verified'      => 'Verified',
     'ready'         => 'Ready',
     'distributed'   => 'Distributed',
+    'donation_desc' => 'List of donations received in the system.',
+    'search_donation' => 'Search by item name or donor...',
+    'no_donation_data' => 'No donation data found.',
+    'confirm_delete_donation' => 'Are you sure you want to delete this donation?',
 
     // Category
     'add_category'  => 'Add Category',
@@ -59,6 +63,9 @@ return [
     'add_distribution'  => 'Add Distribution',
     'distributed_at'    => 'Distribution Date',
     'volunteer'         => 'Volunteer',
+    'distribution_desc' => 'History of item distributions to recipients.',
+    'no_ready_items'    => 'No items ready for distribution.',
+    'confirm_delete_distribution' => 'Are you sure you want to delete this distribution record?',
 
     // Users
     'users'        => 'Users',

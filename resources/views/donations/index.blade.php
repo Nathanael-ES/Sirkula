@@ -42,7 +42,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h2 class="fw-semibold">{{ __('messages.donation_list') }}</h2>
-                    <p class="text-white-50 mb-0">Daftar barang donasi yang masuk ke sistem.</p>
+                    <p class="text-white-50 mb-0">{{ __('messages.donation_desc') }}</p>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                                         <i class='bx bx-search text-muted'></i>
                                     </span>
                                     <input type="text" name="search" value="{{ request('search') }}"
-                                        class="form-control border-start-0" placeholder="Cari nama barang atau donatur...">
+                                        class="form-control border-start-0" placeholder="{{ __('messages.search_donation') }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -139,9 +139,9 @@
 
                                             @if(auth()->user()->role !== 'donatur' || auth()->id() == $d->user_id)
                                             <td class="text-end pe-4">
-                                                <form method="POST" action="{{ route('donations.destroy', $d->id) }}" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus donasi ini?')">
+                                                <form method="POST" action="{{ route('donations.destroy', $d->id) }}" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete_donation') }}')">">
                                                     @csrf @method('DELETE')
-                                                    <button class="btn btn-link text-danger p-0 opacity-75 hover-opacity-100" title="Hapus">
+                                                    <button class="btn btn-link text-danger p-0 opacity-75 hover-opacity-100" title="{{ __('messages.delete') }}">
                                                         <i class='bx bxs-trash fs-5'></i>
                                                     </button>
                                                 </form>
@@ -152,7 +152,7 @@
                                         <tr>
                                             <td colspan="5" class="text-center py-5">
                                                 <i class='bx bx-box fs-1 text-muted opacity-25 mb-3'></i>
-                                                <p class="text-muted mb-0">Tidak ada data donasi ditemukan.</p>
+                                                <p class="text-muted mb-0">{{ __('messages.no_donation_data') }}</p>
                                             </td>
                                         </tr>
                                     @endforelse
