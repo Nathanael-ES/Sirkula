@@ -89,9 +89,9 @@
                 </div>
                 <div class="d-flex align-items-center gap-2 mt-2 small">
                     <i class='bx bxs-circle' style='color:#ff5555; font-size: 8px;'></i>
-                    <span class="text-muted">{{ $pending ?? 0 }} Pending</span>
+                    <span class="text-muted">{{ $pending ?? 0 }} {{ __('messages.pending') }}</span>
                     <i class='bx bxs-circle ms-2' style='color:#6ffa66; font-size: 8px;'></i> 
-                    <span class="text-muted">{{ $verified ?? 0 }} Verified</span>
+                    <span class="text-muted">{{ $verified ?? 0 }} {{ __('messages.verified') }}</span>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
                 {{--kalo ada data yang baru hari ini, titik ijonya nyala--}}
                 @if($recentReady > 0)
                     <i class='bx bxs-circle' style='color:#6ffa66; font-size: 8px;'></i> 
-                    <span class="text-muted">+{{ $recentReady }} Baru Hari Ini</span>
+                    <span class="text-muted">+{{ $recentReady }} {{ __('messages.new_today') }}</span>
                 @else
                     <i class='bx bxs-circle' style='color:#ff5555; font-size: 8px;'></i>
                     <span class="text-muted">{{ __('messages.no_changes_today') }}</span>
@@ -157,7 +157,7 @@
             <div class="d-flex align-items-center gap-2 mt-2 small">
                 @if($recentRecipients > 0)
                     <i class='bx bxs-circle' style='color:#6ffa66; font-size: 8px;'></i> 
-                    <span class="text-muted">+{{ $recentRecipients }} Akun Baru</span>
+                    <span class="text-muted">+{{ $recentRecipients }} {{ __('messages.new_accounts') }}</span>
                 @else
                     <span class="text-muted">{{ __('messages.no_new_user') }}</span>
                 @endif
@@ -183,7 +183,7 @@
                     <thead class="bg-light">
                         <tr>
                             <th class="fw-normal ps-4 py-3">{{ __('messages.category_name') }}</th>
-                            <th class="fw-normal py-3">Deskripsi</th>
+                            <th class="fw-normal py-3">{{ __('messages.description') }}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -232,7 +232,7 @@
                     <thead class="bg-light">
                         <tr>
                             <th class="fw-normal ps-4 py-3">{{ __('messages.recipient_name') }}</th>
-                            <th class="fw-normal py-3">Info Kontak</th>
+                            <th class="fw-normal py-3">{{ __('messages.contact_info') }}</th>
                             <th></th>
                         </tr>
                     </thead>

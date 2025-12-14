@@ -107,6 +107,9 @@ return [
     'no_activity' => 'No activity',
     'no_new_user' => 'No new users',
     'new_users' => 'New Accounts',
+    'new_today' => 'New Today',
+    'new_accounts' => 'New Accounts',
+    'contact_info' => 'Contact Info',
     
     // Items
     'item_catalog' => 'Item Catalog',

@@ -107,6 +107,9 @@ return [
     'no_activity' => 'Tidak ada aktivitas',
     'no_new_user' => 'Tidak ada pendaftar baru',
     'new_users' => 'Akun Baru',
+    'new_today' => 'Baru Hari Ini',
+    'new_accounts' => 'Akun Baru',
+    'contact_info' => 'Info Kontak',
     
     // Items
     'item_catalog' => 'Katalog Barang',
