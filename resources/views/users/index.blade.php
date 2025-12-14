@@ -66,7 +66,7 @@
             
             {{-- Header Tabel --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-white mb-0">Daftar Pengguna</h5>
+                <h5 class="fw-bold text-white mb-0">{{ __('messages.users') }}</h5>
                 <button class="btn btn-light text-primary fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createUserModal">
                     <i class='bx bx-plus me-1'></i> {{ __('messages.add_user') }}
                 </button>
@@ -118,7 +118,7 @@
                                         <i class='bx bxs-pencil fs-5'></i>
                                     </a>
 
-                                    @if(auth()->id() !== $u->id) <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                    @if(auth()->id() !== $u->id) <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ __('messages.confirm_delete') }}')">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="border-0 bg-transparent text-secondary opacity-75 p-0">
                                             <i class='bx bxs-trash fs-5'></i>

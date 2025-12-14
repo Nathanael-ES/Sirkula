@@ -35,7 +35,7 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat.');
+        return redirect()->route('admin.users.index')->with('success', __('messages.user_created'));
     }
 
     public function edit(User $user)
@@ -59,13 +59,13 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.users.index')->with('success', 'User berhasil diperbarui.');
+        return redirect()->route('admin.users.index')->with('success', __('messages.user_updated'));
     }
 
     public function destroy(User $user)
     {
         $user->delete();
 
-        return back()->with('success', 'User berhasil dihapus.');
+        return back()->with('success', __('messages.user_deleted'));
     }
 }

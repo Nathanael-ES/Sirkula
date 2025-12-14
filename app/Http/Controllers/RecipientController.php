@@ -31,9 +31,7 @@ class RecipientController extends Controller
     {
         Recipient::create($request->validated());
         
-        // --- PERUBAHAN DISINI ---
-        // Menggunakan back() agar tetap di halaman Dashboard setelah simpan
-        return back()->with('success', 'Penerima berhasil ditambahkan');
+        return back()->with('success', __('messages.recipient_created'));
     }
 
     public function edit(Recipient $recipient)
@@ -45,15 +43,13 @@ class RecipientController extends Controller
     {
         $recipient->update($request->validated());
         
-       
-        return back()->with('success', 'Penerima berhasil diperbarui');
+        return back()->with('success', __('messages.recipient_updated'));
     }
 
     public function destroy(Recipient $recipient)
     {
         $recipient->delete();
         
-
-        return back()->with('success', 'Penerima berhasil dihapus');
+        return back()->with('success', __('messages.recipient_deleted'));
     }
 }

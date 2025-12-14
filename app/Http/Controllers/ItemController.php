@@ -65,7 +65,7 @@ class ItemController extends Controller
         ]);
 
         return redirect()->route('items.index')
-            ->with('success','Barang berhasil ditambahkan');
+            ->with('success', __('messages.item_created'));
     }
 
 
@@ -96,7 +96,7 @@ class ItemController extends Controller
         $item->update($data);
 
         return redirect()->route('items.index')
-            ->with('success', 'Barang berhasil diperbarui');
+            ->with('success', __('messages.item_updated'));
     }
 
     public function destroy(Item $item)

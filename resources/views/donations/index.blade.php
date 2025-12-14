@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>Daftar Donasi</h3>
+<h3>{{ __('messages.donation_list') }}</h3>
 
 <form class="row mb-3" method="GET">
     <div class="col-md-10">
-        <input class="form-control" name="search" placeholder="Cari barang..." value="{{ request('search') }}">
+        <input class="form-control" name="search" placeholder="{{ __('messages.search') }}" value="{{ request('search') }}">
     </div>
     <div class="col-md-2">
-        <button class="btn btn-primary w-100">Cari</button>
+        <button class="btn btn-primary w-100">{{ __('messages.search') }}</button>
     </div>
 </form>
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Nama Barang</th>
-            <th>Kategori</th>
-            <th>Donatur</th>
-            <th>Status</th>
+            <th>{{ __('messages.item_name') }}</th>
+            <th>{{ __('messages.category') }}</th>
+            <th>{{ __('messages.donor') }}</th>
+            <th>{{ __('messages.status') }}</th>
             @if(auth()->user()->role !== 'donatur')
-                <th>Aksi</th>
+                <th>{{ __('messages.action') }}</th>
             @endif
         </tr>
     </thead>

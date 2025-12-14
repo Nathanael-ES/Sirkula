@@ -35,6 +35,6 @@ class DonationController extends Controller
 
         $donation->delete();
 
-        return back()->with('success', 'Donasi berhasil dihapus');
+        return back()->with('success', __('messages.donation_deleted'));
     }
 }
