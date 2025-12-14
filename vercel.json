@@ -6,8 +6,18 @@
     },
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "^/(.*)",
+            "headers": {
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+            },
             "dest": "/api/index.php"
+        },
+        {
+            "src": "^/.*",
+            "status": 308,
+            "headers": {
+                "location": "https://$host$pathname$query"
+            }
         }
     ],
     "env": {
