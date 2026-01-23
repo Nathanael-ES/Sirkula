@@ -51,10 +51,12 @@ class ItemController extends Controller
 
         if ($request->hasFile('photo')) {
             try {
-                $data['photo'] = $request->file('photo')->store('items', 'public');
+                $file = $request->file('photo');
+                $mime = $file->getMimeType() ?? 'image/jpeg';
+                $base64 = base64_encode(file_get_contents($file->getRealPath()));
+                $data['photo_data'] = 'data:' . $mime . ';base64,' . $base64;
             } catch (\Exception $e) {
-                Log::error('Photo upload failed: ' . $e->getMessage());
-                // Continue without photo
+                Log::error('Photo encode failed: ' . $e->getMessage());
             }
         }
 
@@ -91,11 +93,14 @@ class ItemController extends Controller
 
         if ($request->hasFile('photo')) {
             try {
-                if ($item->photo)
-                    Storage::disk('public')->delete($item->photo);
-                $data['photo'] = $request->file('photo')->store('items', 'public');
+                $file = $request->file('photo');
+                $mime = $file->getMimeType() ?? 'image/jpeg';
+                $base64 = base64_encode(file_get_contents($file->getRealPath()));
+                $data['photo_data'] = 'data:' . $mime . ';base64,' . $base64;
+                // Optionally clear old disk photo reference
+                $data['photo'] = null;
             } catch (\Exception $e) {
-                Log::error('Photo upload failed: ' . $e->getMessage());
+                Log::error('Photo encode failed: ' . $e->getMessage());
             }
         }
 

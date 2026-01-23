@@ -13,6 +13,7 @@ class Item extends Model
         'description',
         'condition',
         'photo',
+        'photo_data',
         'status',
     ];
 
