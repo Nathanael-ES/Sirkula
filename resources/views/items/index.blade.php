@@ -113,9 +113,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="catalog-card h-100 d-flex flex-column">
                 <div class="catalog-img-wrapper">
-                    @if($item->photo_data)
-                        <img src="{{ $item->photo_data }}" class="catalog-img">
-                    @elseif($item->photo)
+                    @if($item->photo)
                         <img src="{{ asset('storage/'.$item->photo) }}" class="catalog-img">
                     @else
                         <div class="text-center text-muted">
@@ -156,7 +154,7 @@
                                     data-condition="{{ $item->condition }}"
                                     data-description="{{ $item->description }}"
                                     data-status="{{ $item->status }}"
-                                    data-photo="{{ $item->photo_data ?: ($item->photo ? asset('storage/'.$item->photo) : '') }}">
+                                    data-photo="{{ $item->photo ? asset('storage/'.$item->photo) : '' }}">
                                 <i class='bx bxs-pencil'></i> Edit
                             </button>
                         </div>
